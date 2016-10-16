@@ -2,34 +2,40 @@ var request = require('request-promise');
 
 var state = {
     update: function(req, res) {
-        var urlBase = "http://192.168.1.125/api/jMjKRla3IH5kBfSSYBFxeXeshsCNi9F2FP2KNoxj/";
-        var urlParam = "lights/1/state";
-        var query = urlBase + urlParam;
+        var responseObj = {};
 
-        var state = req.body.on;
+        for(var i = 0; i < 50; i++) {
+            var lightNum = ((i%2)+1);
+            var urlBase = "http://192.168.1.125/api/jMjKRla3IH5kBfSSYBFxeXeshsCNi9F2FP2KNoxj/";
+            var urlParam = "lights/" + lightNum + "/state";
+            var query = urlBase + urlParam;
 
-        var options = {
-            method: 'PUT',
-            uri: query,
-            body: {
-                "on": state
-            },
-            json: true
-        }
+            var hue = Math.floor(Math.random() * 65535);
+            var sat = Math.floor(Math.random() * 254);
+            var bri = Math.floor(Math.random() * 254);
 
-        request(options).then(function(response) {
-            res.send(response);
-        }).catch(function(err) {
-            res.send(err);
-        });
+            var objID = "light" + lightNum;
 
-        // request(options).then(function(response){
-        //     var rep = {};
-        //     var parsed = JSON.parse(response);
-        //     res.send(parsed);
-        // }).catch(function(err) {
-        //     res.send(err);
-        // });
+            var options = {
+                method: 'PUT',
+                uri: query,
+                body: {
+                    "on": true,
+                    "sat": sat,
+                    "bri": 20,
+                    "hue": hue,
+                    "transitiontime":0
+                },
+                json: true
+            }
+
+            request(options).then(function(response) {
+                responseObj[objID] = response;
+            }).catch(function(err) {
+                responseObj[objID] = response;
+            });
+        };
+        res.send(responseObj);
     }
 };
 

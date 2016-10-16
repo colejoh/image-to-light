@@ -1,0 +1,17 @@
+body {
+    background: #3778FF;
+}
+button {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    top: calc(50% - 100px);
+    left: calc(50% - 200px);
+    border-radius: 10px;
+    border: 10px solid #342121;
+    font-size: 50px;
+    background: #EF4621;
+}
+button:active {
+    background: #373737;
+}
