@@ -5,7 +5,7 @@ var state = {
         var responseObj = {};
 
         for(var i = 0; i < 50; i++) {
-            var lightNum = ((i%2)+1);
+            var lightNum = ((i%3)+1);
             var urlBase = "http://192.168.1.125/api/jMjKRla3IH5kBfSSYBFxeXeshsCNi9F2FP2KNoxj/";
             var urlParam = "lights/" + lightNum + "/state";
             var query = urlBase + urlParam;
@@ -22,7 +22,7 @@ var state = {
                 body: {
                     "on": true,
                     "sat": sat,
-                    "bri": 20,
+                    "bri": bri,
                     "hue": hue,
                     "transitiontime":0
                 },
